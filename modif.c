@@ -41,6 +41,8 @@ void taches_de_couleur(Image *i){
        k++;
     }
 
+    // generate all groups of pixels from the whole image
+
     /*for(y = 0; y < size; y++){
       if(array[y].explored == 1){
         continue;
@@ -79,7 +81,7 @@ void taches_de_couleur(Image *i){
       }
     }*/
 
-
+    // generate only the first group. Fails too if group is too big.
 
     Tache * new_pound;
     new_pound = malloc(sizeof(Tache));
@@ -107,7 +109,7 @@ void taches_de_couleur(Image *i){
       }
     }
 
-    // actualisation de l'image
+    // display updated image
     k = 0;
     for(j = 0; j < 3 * size; j+=3){
       im[j] = array[k].r ;
