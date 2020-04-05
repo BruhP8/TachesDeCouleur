@@ -42,3 +42,19 @@ void explore(Pixel * array, int j, Tache * cur_pound, int * it, Pixel previous);
 GLubyte getAvgRed(Pixel * array, int * indexs);
 GLubyte getAvgGreen(Pixel * array, int * indexs);
 GLubyte getAvgBlue(Pixel * array, int * indexs);
+
+
+/* 
+RANDNAME 
+    decoupe l'image raw en main Pixel *
+    recupere les sections
+    appelle tache_de_couleur avec chaque section
+    update le main Pixel * avec le resultat de tache_de_couleur
+    parcours le main Pixel * et le remet dans l'image
+
+
+taches_de_couleur prends chaque Pixel * renvoyé par le sectionnage
+    traite pour generer les taches
+    renvoie le tableau re coloré
+
+*/
