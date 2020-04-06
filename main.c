@@ -101,7 +101,7 @@ void menuFunc(int item) {
     break;
   case 3 :
     printf("convert to color areas\n");
-    taches_de_couleur(image);
+    oldmain(image);
     Display();
     break;
   default:

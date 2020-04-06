@@ -35,15 +35,16 @@ int ImageLoad_PPM(char *filename, Image *image);
 void imagesave_PPM(char *filename, Image *image);
 
 void gris_uniforme (Image *);
-void taches_de_couleur(Image *);
-void explore(Pixel * array, int j, Tache * cur_pound, int * it, Pixel previous);
-//void explore(Pixel * array, int j, Tache * cur_pound, int * it);
+Pixel * taches_de_couleur(Pixel * array, int sizeX, int sizeY);
+void explore(Pixel * array, int j, Tache * cur_pound, int * it, Pixel previous, int sizeX, int sizeY);
 
-GLubyte getAvgRed(Pixel * array, int * indexs);
-GLubyte getAvgGreen(Pixel * array, int * indexs);
-GLubyte getAvgBlue(Pixel * array, int * indexs);
+GLubyte getAvgRed(Pixel * array, int * indexs, int size);
+GLubyte getAvgGreen(Pixel * array, int * indexs, int size);
+GLubyte getAvgBlue(Pixel * array, int * indexs, int size);
 
-
+Pixel * getSection(Pixel * testArray, int startPos, int sizeX, int sizeY, Pixel * section);
+void rewirteImage(GLubyte * im, Pixel * section, int startPos, int sizeX, int sizeY);
+void oldmain (Image * i);
 /* 
 RANDNAME 
     decoupe l'image raw en main Pixel *
