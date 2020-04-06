@@ -62,12 +62,8 @@ int ReInit() {
 
 void Display(void) {
   
-  GLint w, h;
-
   glClear(GL_COLOR_BUFFER_BIT);
 
-  w = glutGet(GLUT_WINDOW_WIDTH);
-  h = glutGet(GLUT_WINDOW_HEIGHT);
   glDrawPixels(image->sizeX, image->sizeY, GL_RGB, GL_UNSIGNED_BYTE, 
 	       image->data);
 
@@ -97,11 +93,11 @@ void menuFunc(int item) {
     imagesave_PPM(s, image);
     break;
   case 2:
-    printf("Taille de l image : %ld %ld\n", (int) image->sizeX, (int) image->sizeY);
+    printf("Taille de l image : %d %d\n", (int) image->sizeX, (int) image->sizeY);
     break;
   case 3 :
     printf("convert to color areas\n");
-    oldmain(image);
+    tachesInit(image);
     Display();
     break;
   default:
