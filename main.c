@@ -88,7 +88,7 @@ void menuFunc(int item) {
     exit(0);
     break;
   case 1:
-    printf("Entrer le nom pour l'image dans cette taille\n");
+    printf("Entrer le nom pour l'image\n");
     scanf("%s", &s[0]);
     imagesave_PPM(s, image);
     break;
@@ -98,6 +98,12 @@ void menuFunc(int item) {
   case 3 :
     printf("convert to color areas\n");
     tachesInit(image);
+    Display();
+    break;
+  case 4 :
+    printf("Entrer le nom du fichier compressé a charger\n");
+    scanf("%s", &s[0]);
+    fromFile(s, image);
     Display();
     break;
   default:
@@ -123,7 +129,8 @@ int main(int argc, char **argv) {
   glutAddMenuEntry("Quit", 0);
   glutAddMenuEntry("Sauver", 1);
   glutAddMenuEntry("Informations", 2);
-  glutAddMenuEntry("Taches de couleur", 3);
+  glutAddMenuEntry("Generate Taches de couleur", 3);
+  glutAddMenuEntry("Load Taches De Couleur", 4);
   glutAttachMenu(GLUT_LEFT_BUTTON);
 
   glutDisplayFunc(Display);  

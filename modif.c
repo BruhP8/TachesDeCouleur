@@ -2,6 +2,8 @@
 
 #include "ima.h"
 #include <limits.h>
+
+int matrixSize = 400;
 /** Simplifies an array by making pounds out of similar pixels
  * array is the original chunk of image that needs to be simplified
  * sizeX and sizeY are the dimensions of the chunk
@@ -34,6 +36,10 @@ Pixel * tachesDeCouleur(Pixel * array, int sizeX, int sizeY){
         new_pound->r = getAvgRed(array, new_pound->limits, size);
         new_pound->g = getAvgGreen(array, new_pound->limits, size);
         new_pound->b = getAvgBlue(array, new_pound->limits, size);
+
+        if(toFile(new_pound, size) == 1){
+          perror("Could not write this pound to output file.");
+        }
 
         k = 0;
         // replace the array data with generated pound data for applicable pixels
@@ -194,8 +200,8 @@ Pixel * getSection(Pixel * picture, int startPos, int sizeX, int sizeY, Pixel * 
     startX = startPos - (startY * sizeX);
 
     // fill up the section
-    for(y = startY; y < startY + 15; y++){
-        for(x = startX; x < startX + 15; x++){
+    for(y = startY; y < startY + matrixSize; y++){
+        for(x = startX; x < startX + matrixSize; x++){
             // out of bounds in X axis : case the section only partially covers the image
             if(x != startX && x >= sizeX){
                 // fill it up with empty data
@@ -232,7 +238,7 @@ void tachesInit (Image * i){
     sizeX = i->sizeX;
     sizeY = i->sizeY;
     size = sizeX * sizeY;
-    matrix = 15;
+    matrix = matrixSize;
     nbmatX = 0;
     nbmatY = 0;
     k = 0;
@@ -290,22 +296,90 @@ void rewirteImage(GLubyte * im, Pixel * section, int startPos, int sizeX, int si
     startX = startPos - (startY * sizeX);
 
     // iterate over the raw image using the smaller section of image
-    for(y = startY; y < startY + 15; y++){
+    for(y = startY; y < startY + matrixSize; y++){
       // out of bounds in section on Y axis
       if(y >= sizeY){
         break;
       }
-      for(x = startX; x < startX + 15; x++){
+      for(x = startX; x < startX + matrixSize; x++){
         // out of bounds in section on X axis
         if(x >= sizeX){
           break;
         }
         // update image using section data with offset for r g b
-        im[3 * (x + sizeX * y)] = section[(x - startX) + 15 * (y - startY)].r;
-        im[3 * (x + sizeX * y) + 1] = section[(x - startX) + 15 * (y - startY)].g;
-        im[3 * (x + sizeX * y) + 2] = section[(x - startX) + 15 * (y - startY)].b;
+        im[3 * (x + sizeX * y)] = section[(x - startX) + matrixSize * (y - startY)].r;
+        im[3 * (x + sizeX * y) + 1] = section[(x - startX) + matrixSize * (y - startY)].g;
+        im[3 * (x + sizeX * y) + 2] = section[(x - startX) + matrixSize * (y - startY)].b;
       }
     }
 }
 
+int toFile(Tache * pound, int size){
+  FILE * file;
+
+  file = fopen("converted_img.txt", "a");
+  if(file == NULL){
+    return 1;
+  }
+
+  fprintf(file, "%d %d %d : ", pound->r, pound->g, pound->b);
+
+  for(int i = 0; i < size; i++){
+    if(pound->limits[i] == -1)
+      break;
+    fprintf(file, "%d ", pound->limits[i]);
+  }
+  fprintf(file, ".\n");
+
+  fclose(file);
+  return 0;
+}
+
+void fromFile(char * filename, Image * im){
+  printf("Warning, this function doesn't work !\n");
+  FILE * file;
+  char colorStr[12] = "";
+  char tmp;
+  int tmpIndex;
+  int r, g, b, it = 0;
+
+  int * limits;
+  limits = malloc(im->sizeX * im->sizeY * sizeof(int));
+  for(int i = 0; i < im->sizeX * im->sizeY; i++){
+    limits[i] = -1;
+  }
+
+  file = fopen(filename, "r");
+  if(file == NULL){
+    printf("Error - could not load file at path %s", filename);
+    return;
+  }
+  
+  while(1){
+    tmp = fgetc(file);
+    if(tmp == ':')
+        break;
+      strncat(colorStr, &tmp, 1);
+    }
+    sscanf(colorStr, "%d %d %d ", &r, &g, &b);
+    while(1){
+      tmp = fgetc(file);
+      if(tmp == '.')
+        break;
+      fscanf(file, "%d", &tmpIndex);
+      limits[it] = tmpIndex;
+      it++;
+    }
+    printf("%d %d %d\n", r, g, b);
+    for(int i = 0, k = 0; i < 3 * im->sizeX * im->sizeY; i+=3, k++){
+      if(limits[k] == -1)
+        break;
+      im->data[i] = r;
+      im->data[i + 1] = g;
+      im->data[i + 2] = b;
+    }
+
+  free(limits);
+  fclose(file);
+}
 //disatnce euclidienne pour les ecarts de couleur ?
