@@ -1,0 +1,20 @@
+\babel@toc {french}{}
+\contentsline {chapter}{\numberline {1}Rappel du projet \& Déviation du sujet}{2}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Le projet}{2}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Dévitations}{2}{section.1.2}%
+\contentsline {chapter}{\numberline {2}Approche générale}{4}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Coeur de l'algorithme}{4}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Le problème de cette approche et solution}{5}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Le problème de la solution}{5}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Tentative de solution au problème de la solution}{6}{section.2.4}%
+\contentsline {chapter}{\numberline {3}Implémentation}{7}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Structures}{7}{section.3.1}%
+\contentsline {section}{\numberline {3.2}explore}{7}{section.3.2}%
+\contentsline {section}{\numberline {3.3}tachesInit}{9}{section.3.3}%
+\contentsline {section}{\numberline {3.4}getSection}{10}{section.3.4}%
+\contentsline {section}{\numberline {3.5}tachesDeCouleur}{11}{section.3.5}%
+\contentsline {section}{\numberline {3.6}getAvg(Red/Green/Blue)}{13}{section.3.6}%
+\contentsline {chapter}{\numberline {4}Sythèse \& Guide d'utilisation}{14}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Sythèse}{14}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Utilisation}{14}{section.4.2}%
+\contentsline {chapter}{\numberline {5}Annexe}{16}{chapter.5}%
